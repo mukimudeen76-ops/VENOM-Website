@@ -1,6 +1,6 @@
-# VENOM — Official Website
+# VENOM — Download
 
-Beautiful download landing page for the **VENOM AI Voice Assistant** (Android APK + Windows EXE).
+Simple download page for the **VENOM AI Voice Assistant** (Android APK + Windows EXE).
 
 ## How it works
 
