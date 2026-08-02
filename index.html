@@ -123,8 +123,19 @@
   .toast.show { transform: translateX(-50%) translateY(0); }
   @media (max-width: 640px) { .nav-links { display: none; } .hero { padding-top: 44px; } }
 </style>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
 </head>
 <body>
+<canvas id="bg3d"></canvas>
+<style>
+  #bg3d { position: fixed; inset: 0; z-index: -3; width: 100vw; height: 100vh; display: block; }
+  .card, .feat, .step { transform-style: preserve-3d; will-change: transform; }
+  .card:hover, .feat:hover { transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateY(-6px) scale(1.01); }
+  .hero-btns .btn { transition: transform .2s, box-shadow .2s; }
+  .hero-btns .btn:hover { transform: translateY(-4px) scale(1.03); }
+</style>
 <div class="bg-fx"></div>
 <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
 
@@ -310,6 +321,84 @@
 
   loadRelease();
   setInterval(loadRelease, 60000); // auto-refresh: new releases appear here automatically
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  const canvas = document.getElementById('bg3d');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 5);
+
+  // lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const key = new THREE.DirectionalLight(0xffffff, 1.0);
+  key.position.set(3, 4, 5);
+  scene.add(key);
+  const v1 = new THREE.DirectionalLight(0x9d4edd, 1.4);
+  v1.position.set(-3, -1, 2);
+  scene.add(v1);
+  const v2 = new THREE.DirectionalLight(0x00e5ff, 1.1);
+  v2.position.set(2, 1, -2);
+  scene.add(v2);
+
+  // floating symbiote blob (distorted icosahedron)
+  const blob = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.15, 2),
+    new THREE.MeshStandardMaterial({ color: 0x1a0b2e, emissive: 0x6d28d9, emissiveIntensity: 0.45, roughness: 0.35, metalness: 0.6, wireframe: false })
+  );
+  scene.add(blob);
+  const blobWire = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.32, 1),
+    new THREE.MeshBasicMaterial({ color: 0x9d4edd, wireframe: true, transparent: true, opacity: 0.35 })
+  );
+  scene.add(blobWire);
+
+  // particle field
+  const N = 900;
+  const pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    pos[i*3] = (Math.random() - 0.5) * 24;
+    pos[i*3+1] = (Math.random() - 0.5) * 14;
+    pos[i*3+2] = (Math.random() - 0.5) * 12 - 2;
+  }
+  const pts = new THREE.BufferGeometry();
+  pts.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const particles = new THREE.Points(pts, new THREE.PointsMaterial({ color: 0x00e5ff, size: 0.04, transparent: true, opacity: 0.8 }));
+  scene.add(particles);
+
+  const clock = new THREE.Clock();
+  function animate() {
+    const t = clock.getElapsedTime();
+    // blob distortion + rotation
+    const geo = blob.geometry;
+    const p = geo.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
+      const n = 1 + 0.16 * Math.sin(t * 1.4 + x * 2.2) + 0.12 * Math.cos(t * 1.1 + y * 2.6) + 0.1 * Math.sin(t * 1.8 + z * 3);
+      p.setXYZ(i, x * n, y * n, z * n);
+    }
+    p.needsUpdate = true;
+    geo.computeVertexNormals();
+    blob.rotation.y += 0.004;
+    blob.rotation.x = Math.sin(t * 0.3) * 0.2;
+    blobWire.rotation.y = -t * 0.1;
+    blobWire.rotation.z = t * 0.05;
+    // particles drift
+    particles.rotation.y = t * 0.02;
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
 </script>
 </body>
 </html>
