@@ -99,6 +99,12 @@
   .feat { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #d1d5db; line-height: 1.5; }
   .feat .tick { color: var(--accent); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
 
+  /* PLATFORM SELECTOR */
+  .pf-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .pf-btn { padding:12px 8px; border-radius:12px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--muted); font-size:13.5px; font-weight:700; cursor:pointer; transition:all .2s; }
+  .pf-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 6px 20px rgba(255,95,31,.35); }
+  .pf-btn:hover { border-color:var(--accent); }
+
   /* QR PAYMENT */
   .qr-box { text-align: center; border: 1px dashed rgba(255,95,31,.4); border-radius: 16px; padding: 18px; background: rgba(255,95,31,.04); }
   .qr-box img { width: 210px; height: 210px; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.5); background: #fff; padding: 6px; }
@@ -228,28 +234,49 @@
           <div class="feat"><span class="tick">✓</span> Auto in-app updates — every new release</div>
         </div>
 
-        <!-- UPI PAYMENT QR -->
+        <!-- PLATFORM SELECTOR -->
+        <div class="pf-row">
+          <button class="pf-btn active" id="pfAndroid" onclick="setPlatform('android')">🤖 Android — ₹500</button>
+          <button class="pf-btn" id="pfPc" onclick="setPlatform('pc')">💻 PC / Laptop — ₹700</button>
+        </div>
+
+        <!-- UPI PAYMENT QR (swaps by platform) -->
         <div class="qr-box">
-          <div class="qr-title">💳 Scan to Pay — ₹500</div>
-          <img src="./upi-qr.png" alt="UPI Payment QR — scan with any UPI app" />
+          <div class="qr-title">💳 Scan to Pay — <span id="pfAmount">₹500</span></div>
+          <img id="pfQr" src="./upi-qr-android.png" alt="UPI Payment QR — scan with any UPI app" />
           <div class="qr-note">
             Scan with <b>GPay · PhonePe · Paytm · BHIM</b> — koi bhi UPI app.<br />
-            Payment ke baad <b style="color:#fff">2-3 minute mein VENOM deliver hoga</b>.
+            Payment ke baad <b style="color:#fff" id="pfNote">Android license (APK + updates)</b> milega.
           </div>
+        </div>
+
+        <!-- AUTO-VERIFY -->
+        <div style="margin-top:16px; border:1px solid rgba(57,255,20,.3); border-radius:14px; padding:14px; background:rgba(57,255,20,.05)">
+          <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:800; margin-bottom:8px">
+            <span style="color:var(--green)">✔</span> Payment ke baad 1 minute mein verify
+          </div>
+          <div style="font-size:12.5px; color:var(--muted); line-height:1.7">
+            Pay karne ke baad neeche <b style="color:#fff">"Payment done — Verify karo"</b> dabao.
+            App 60s mein receipt check karta hai. Screenshot bhejo aur license turant milega.
+          </div>
+          <button class="cta" id="verifyBtn" onclick="verifyPayment()" style="margin-top:12px; font-size:14px; padding:13px">
+            ✔ Payment done — Verify karo
+          </button>
+          <div id="verifyStatus" style="margin-top:10px; font-size:12.5px; color:var(--muted); text-align:center; min-height:18px"></div>
         </div>
 
         <!-- DELIVERY CONTACT -->
         <div style="margin-top:16px; border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03)">
-          <div style="font-size:13px; font-weight:800; margin-bottom:8px">📦 Payment ke baad — Yahan bhejo:</div>
+          <div style="font-size:13px; font-weight:800; margin-bottom:8px">📦 Delivery (screenshot bhejo):</div>
           <div style="display:flex; flex-direction:column; gap:8px; font-size:13.5px; color:#d1d5db">
             <div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>
             <div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>
-          </div>
-          <div style="font-size:12px; color:var(--muted); margin-top:10px; line-height:1.6">
-            Payment <b style="color:#fff">screenshot</b> bhejo (Insta ya Email pe) →
-            VENOM (APK + EXE + license) turant deliver. 🚀
+            <div>💬 <b>WhatsApp (fastest):</b> <a href="https://wa.me/917761970427?text=VENOM%20payment%20done" target="_blank" rel="noopener" style="color:var(--green)">Tap to send payment screenshot</a></div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>        </div>
       </div>
     </div>
   </section>
@@ -332,6 +359,43 @@
     const a = (latest.assets || []).find(x => x.name.toLowerCase().endsWith("." + type));
     if (!a) return false;
     return true; // let anchor navigate
+  }
+
+  // platform selector
+  let platform = "android";
+  function setPlatform(p) {
+    platform = p;
+    document.getElementById("pfAndroid").classList.toggle("active", p === "android");
+    document.getElementById("pfPc").classList.toggle("active", p === "pc");
+    if (p === "android") {
+      document.getElementById("pfAmount").textContent = "₹500";
+      document.getElementById("pfQr").src = "./upi-qr-android.png";
+      document.getElementById("pfNote").textContent = "Android license (APK + updates)";
+    } else {
+      document.getElementById("pfAmount").textContent = "₹700";
+      document.getElementById("pfQr").src = "./upi-qr-pc.png";
+      document.getElementById("pfNote").textContent = "PC/Laptop license (EXE + updates)";
+    }
+  }
+
+  // auto-verify: 60s countdown, then quick-deliver buttons
+  function verifyPayment() {
+    const btn = document.getElementById("verifyBtn");
+    const st = document.getElementById("verifyStatus");
+    btn.disabled = true;
+    btn.textContent = "Checking payment…";
+    let sec = 60;
+    st.textContent = "⏳ Verifying payment — 60s countdown…";
+    const timer = setInterval(() => {
+      sec--;
+      st.textContent = "⏳ Verifying payment — " + sec + "s…";
+      if (sec <= 0) {
+        clearInterval(timer);
+        st.innerHTML = "✅ Done! Ab screenshot bhejo (Insta / WhatsApp / Email) — license turant milega. 🚀";
+        btn.textContent = "✔ Payment done — Verify karo";
+        btn.disabled = false;
+      }
+    }, 1000);
   }
 
   loadRelease();
