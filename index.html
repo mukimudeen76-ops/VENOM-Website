@@ -263,9 +263,10 @@
 
           <!-- FormSubmit: payment details auto-email to creator -->
           <form id="payForm" action="https://formsubmit.co/xtehzeeb.x7@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="🔔 VENOM PAYMENT — <span id="pfPlatformLabel">Android</span>" />
+            <input type="hidden" name="_subject" id="pfSubject" value="🔔 VENOM PAYMENT — Android" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" id="pfNext" value="" />
             <input type="hidden" name="Platform" id="pfPlatformHidden" value="Android" />
             <input type="hidden" name="Amount" id="pfAmountHidden" value="500" />
 
@@ -416,14 +417,14 @@
       document.getElementById("pfAmount").textContent = "₹500";
       document.getElementById("pfQr").src = "./upi-qr-android.png";
       document.getElementById("pfNote").textContent = "Android license (APK + updates)";
-      document.getElementById("pfPlatformLabel").textContent = "Android";
+      document.getElementById("pfSubject").value = "🔔 VENOM PAYMENT — Android";
       document.getElementById("pfPlatformHidden").value = "Android";
       document.getElementById("pfAmountHidden").value = "500";
     } else {
       document.getElementById("pfAmount").textContent = "₹700";
       document.getElementById("pfQr").src = "./upi-qr-pc.png";
       document.getElementById("pfNote").textContent = "PC/Laptop license (EXE + updates)";
-      document.getElementById("pfPlatformLabel").textContent = "PC/Laptop";
+      document.getElementById("pfSubject").value = "🔔 VENOM PAYMENT — PC/Laptop";
       document.getElementById("pfPlatformHidden").value = "PC/Laptop";
       document.getElementById("pfAmountHidden").value = "700";
     }
@@ -445,11 +446,13 @@
         // prefilled WhatsApp screenshot request
         const msg = encodeURIComponent("VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt + "\nName: " + name + "\nEmail: " + email + "\nUPI ID: " + txn + "\n\n(screenshot attach kar do)");
         document.getElementById("waLink").href = "https://wa.me/917761970427?text=" + msg;
-        // reveal success + allow form to proceed (FormSubmit handles the email)
-        setTimeout(() => {
-          document.getElementById("payDone").style.display = "block";
-          document.getElementById("payForm").style.display = "none";
-        }, 300);
+        // stay on this page: email via fetch (no redirect), reveal success
+        e.preventDefault();
+        document.getElementById("pfNext").value = window.location.href.split("#")[0];
+        const formData = new FormData(form);
+        fetch(form.action, { method: "POST", body: formData, mode: "no-cors" }).catch(() => {});
+        document.getElementById("payDone").style.display = "block";
+        document.getElementById("payForm").style.display = "none";
       });
     }
   });
