@@ -196,8 +196,8 @@
           <div class="row"><span class="k">Latest release</span><span class="v" id="verTag">v1.9.1</span></div>
           <div class="row"><span class="k">Platform</span><span class="v">Android APK · Windows EXE</span></div>
         </div>
-        <button class="cta" id="apkBtn" onclick="gateDownload('apk')" style="border:none;cursor:pointer">🔒 Android APK — Payment ke baad unlock</button>
-        <button class="cta-sm" id="exeBtn" onclick="gateDownload('exe')" style="border:none;cursor:pointer">🔒 Windows EXE — Payment ke baad unlock</button>
+        <button class="cta" id="apkBtn" onclick="goInstagram()" style="border:none;cursor:pointer">🔒 Android APK — Payment ke baad Instagram pe</button>
+        <button class="cta-sm" id="exeBtn" onclick="goInstagram()" style="border:none;cursor:pointer">🔒 Windows EXE — Payment ke baad Instagram pe</button>
         <p style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:10px" id="sizeInfo">
           🔐 SECURE: VENOM sirf verified payment ke baad milta hai
         </p>
@@ -382,8 +382,7 @@
 
       document.getElementById("verTag").textContent = tag;
       document.getElementById("verFoot").textContent = tag;
-      if (apk) document.getElementById("apkBtn").href = apk.browser_download_url;
-      if (exe) document.getElementById("exeBtn").href = exe.browser_download_url;
+      window.__latest = latest; // delivery via Instagram DM, not public links
       const parts = [];
       if (apk) parts.push("APK " + fmt(apk.size));
       if (exe) parts.push("EXE " + fmt(exe.size));
@@ -456,9 +455,9 @@
         // prefilled WhatsApp screenshot request
         const msg = encodeURIComponent("VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt + "\nName: " + name + "\nEmail: " + email + "\nUPI ID: " + txn + "\n\n(screenshot attach kar do)");
         // (delivery contact revealed only after payment form is filled)
-        // stay on this page: email via fetch (no redirect), reveal success + unlock
+        // stay on this page: email via fetch (no redirect), reveal delivery
         e.preventDefault();
-        paymentUnlocked = true;
+        paymentSubmitted = true;
         // secure verification code (only for REAL txn submissions)
         const vc = "V" + Math.random().toString(36).slice(2,6).toUpperCase() + String(txn).slice(-4);
         document.getElementById("vcode").textContent = vc;
@@ -467,19 +466,41 @@
         fetch(form.action, { method: "POST", body: formData, mode: "no-cors" }).catch(() => {});
         document.getElementById("payDone").style.display = "block";
         document.getElementById("payForm").style.display = "none";
-        // unlock download buttons
+        // download buttons -> Instagram delivery
         const ab = document.getElementById("apkBtn");
         const eb = document.getElementById("exeBtn");
-        if (ab) { ab.textContent = "⬇ Download Android APK (Unlocked)"; ab.onclick = () => gateDownload("apk"); }
-        if (eb) { eb.textContent = "⬇ Download Windows EXE (Unlocked)"; eb.onclick = () => gateDownload("exe"); }
+        if (ab) { ab.textContent = "📲 Instagram pe VENOM lo (delivery)"; ab.onclick = goInstagram; }
+        if (eb) { eb.textContent = "📲 Instagram pe VENOM lo (delivery)"; eb.onclick = goInstagram; }
       });
     }
   });
 
-  // DOWNLOAD GATE: downloads unlock ONLY after the payment form is submitted.
-  let paymentUnlocked = false;
-  function gateDownload(type) {
-    if (!paymentUnlocked) {
+  // INSTAGRAM DELIVERY GATE: VENOM goes out ONLY via Instagram DM after the
+  // payment form (real UPI txn ID) is submitted. Fake payment = no DM, no link.
+  let paymentSubmitted = false;
+
+  function goInstagram() {
+    if (!paymentSubmitted) {
+      alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir Instagram pe delivery milegi. Fake payment pe kuchh nahi milega.");
+      document.getElementById("payForm")?.scrollIntoView({ behavior: "smooth" });
+      return false;
+    }
+    const name = document.getElementById("payForm")?.querySelector('input[name="Name"]')?.value || "";
+    const email = document.getElementById("payForm")?.querySelector('input[name="Email"]')?.value || "";
+    const txn = document.getElementById("payForm")?.querySelector('input[name="UPI Transaction ID"]')?.value || "";
+    const code = document.getElementById("vcode")?.textContent || "";
+    const plat = platform === "pc" ? "PC/Laptop" : "Android";
+    const amt = platform === "pc" ? "700" : "500";
+    const msg = encodeURIComponent(
+      "VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt +
+      "\nName: " + name + "\nEmail: " + email + "\nUPI Txn: " + txn +
+      "\nVerification Code: " + code + "\n\n(screenshot bhi bhej do)"
+    );
+    window.open("https://instagram.com/xtehzeeb.x", "_blank");
+    setTimeout(() => alert("Instagram pe DM bhejo (payment details ke saath). Creator payment verify karke link bhejega — fake payment pe kuchh nahi milega."), 600);
+    return false;
+  }
+
       alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir download unlock hoga. Fake payment pe download kabhi nahi milega.");
       document.getElementById("payForm")?.scrollIntoView({ behavior: "smooth" });
       return false;
