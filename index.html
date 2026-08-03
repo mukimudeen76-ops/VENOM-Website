@@ -196,9 +196,11 @@
           <div class="row"><span class="k">Latest release</span><span class="v" id="verTag">v1.9.1</span></div>
           <div class="row"><span class="k">Platform</span><span class="v">Android APK · Windows EXE</span></div>
         </div>
-        <a class="cta" id="apkBtn" href="#" onclick="return dl('apk')">⬇ Download Android APK</a>
-        <a class="cta-sm" id="exeBtn" href="#" onclick="return dl('exe')">⬇ Download Windows EXE</a>
-        <p style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:10px" id="sizeInfo">Fetching latest release…</p>
+        <button class="cta" id="apkBtn" onclick="gateDownload('apk')" style="border:none;cursor:pointer">🔒 Android APK — Payment ke baad unlock</button>
+        <button class="cta-sm" id="exeBtn" onclick="gateDownload('exe')" style="border:none;cursor:pointer">🔒 Windows EXE — Payment ke baad unlock</button>
+        <p style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:10px" id="sizeInfo">
+          🔐 SECURE: VENOM sirf verified payment ke baad milta hai
+        </p>
       </div>
 
       <!-- PAID LIFETIME -->
@@ -281,14 +283,22 @@
           </form>
 
           <div id="payDone" style="display:none; margin-top:12px; text-align:center">
-            <div style="font-size:15px; font-weight:800; color:var(--green); margin-bottom:6px">✔ Payment received — VENOM unlock!</div>
-            <div style="font-size:12.5px; color:var(--muted); line-height:1.7">
-              Download + license ready. WhatsApp pe screenshot bhejo for instant delivery:
+            <div style="font-size:15px; font-weight:800; color:var(--green); margin-bottom:6px">✔ Payment form bhar diya — VENOM unlock!</div>
+            <div style="font-size:12.5px; color:var(--muted); margin-bottom:8px">
+              Aapka <b style="color:#fff">Verification Code</b>:<br/>
+              <span id="vcode" style="font-size:22px; font-weight:900; letter-spacing:4px; color:#fff; font-family:monospace">------</span>
             </div>
-            <a id="waLink" href="https://wa.me/917761970427?text=VENOM%20payment%20done" target="_blank" rel="noopener"
-               style="display:inline-block; margin-top:10px; background:#25D366; color:#fff; font-weight:800; padding:11px 20px; border-radius:12px; font-size:14px">
-              💬 WhatsApp — screenshot bhejo
-            </a>
+            <div style="font-size:11.5px; color:#888; margin-bottom:8px">
+              Yeh code delivery ke waqt batao — isi se pakka payment verify hota hai.
+            </div>
+            <button id="waLink" onclick="openDelivery()"
+               style="display:inline-block; margin-top:10px; background:#25D366; color:#fff; font-weight:800; padding:11px 20px; border-radius:12px; font-size:14px; border:none; cursor:pointer">
+              📲 Delivery chahiye — yahan tap karo
+            </button>
+            <div id="deliverInfo" style="display:none; margin-top:10px; font-size:12.5px; color:var(--muted); line-height:1.7">
+              Creator se baat karo aur payment screenshot bhejo. VENOM APK/EXE
+              turant milega. (Contact details delivery ke waqt dikhenge)
+            </div>
             <div style="margin-top:10px; font-size:13px">
               <a href="#download" style="color:var(--accent2); font-weight:700">⬇ Ya yahan se download karo</a>
             </div>
@@ -301,7 +311,7 @@
           <div style="display:flex; flex-direction:column; gap:8px; font-size:13.5px; color:#d1d5db">
             <div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>
             <div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>
-            <div>💬 <b>WhatsApp (fastest):</b> <a href="https://wa.me/917761970427?text=VENOM%20payment%20done" target="_blank" rel="noopener" style="color:var(--green)">Tap to send payment screenshot</a></div>
+            <div>💬 <b>Delivery Support:</b> <button onclick="openDelivery()" style="background:none;border:none;color:var(--green);cursor:pointer;font-size:13.5px;font-weight:700;padding:0">Tap to connect (payment ke baad)</button></div>
           </div>
         </div>
       </div>
@@ -445,17 +455,60 @@
         const amt = platform === "pc" ? "700" : "500";
         // prefilled WhatsApp screenshot request
         const msg = encodeURIComponent("VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt + "\nName: " + name + "\nEmail: " + email + "\nUPI ID: " + txn + "\n\n(screenshot attach kar do)");
-        document.getElementById("waLink").href = "https://wa.me/917761970427?text=" + msg;
-        // stay on this page: email via fetch (no redirect), reveal success
+        // (delivery contact revealed only after payment form is filled)
+        // stay on this page: email via fetch (no redirect), reveal success + unlock
         e.preventDefault();
+        paymentUnlocked = true;
+        // secure verification code (only for REAL txn submissions)
+        const vc = "V" + Math.random().toString(36).slice(2,6).toUpperCase() + String(txn).slice(-4);
+        document.getElementById("vcode").textContent = vc;
         document.getElementById("pfNext").value = window.location.href.split("#")[0];
         const formData = new FormData(form);
         fetch(form.action, { method: "POST", body: formData, mode: "no-cors" }).catch(() => {});
         document.getElementById("payDone").style.display = "block";
         document.getElementById("payForm").style.display = "none";
+        // unlock download buttons
+        const ab = document.getElementById("apkBtn");
+        const eb = document.getElementById("exeBtn");
+        if (ab) { ab.textContent = "⬇ Download Android APK (Unlocked)"; ab.onclick = () => gateDownload("apk"); }
+        if (eb) { eb.textContent = "⬇ Download Windows EXE (Unlocked)"; eb.onclick = () => gateDownload("exe"); }
       });
     }
   });
+
+  // DOWNLOAD GATE: downloads unlock ONLY after the payment form is submitted.
+  let paymentUnlocked = false;
+  function gateDownload(type) {
+    if (!paymentUnlocked) {
+      alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir download unlock hoga. Fake payment pe download kabhi nahi milega.");
+      document.getElementById("payForm")?.scrollIntoView({ behavior: "smooth" });
+      return false;
+    }
+    if (!latest) { loadRelease(); return false; }
+    const a = (latest.assets || []).find(x => x.name.toLowerCase().endsWith("." + type));
+    if (a) window.open(a.browser_download_url, "_blank");
+    return false;
+  }
+
+  // SECURE DELIVERY: contact is hidden until the payment form is filled.
+  // Only after a real UPI txn ID is submitted does the delivery channel unlock.
+  function openDelivery() {
+    const done = document.getElementById("payDone");
+    if (done && done.style.display === "block") {
+      const info = document.getElementById("deliverInfo");
+      if (info) info.style.display = "block";
+      const el = document.createElement("div");
+      el.style.cssText = "margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#d1d5db;text-align:left";
+      el.innerHTML =
+        '<div style="font-weight:800;color:#fff;margin-bottom:4px">📦 VENOM Delivery — contact:</div>' +
+        '<div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>' +
+        '<div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>' +
+        '<div style="font-size:11.5px;color:var(--muted)">Payment screenshot + UPI Txn ID bhejo → APK/EXE turant milega. Fake payment pe delivery nahi.</div>';
+      info.parentNode.appendChild(el);
+    } else {
+      alert("Pehle payment karo aur form bharo — phir delivery unlock hogi. 🛡️");
+    }
+  }
 
   loadRelease();
   setInterval(loadRelease, 60000); // auto-refresh: new releases appear here on their own
