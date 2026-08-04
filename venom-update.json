@@ -1,6 +1,6 @@
 {
-  "latestVersion": "2.1.2",
-  "releaseNotes": "Source code ab private hai — update ab Instagram DM se milta hai. Update check bhi fix (manifest-based, rate-limit safe).",
+  "latestVersion": "2.1.3",
+  "releaseNotes": "API key test FIX — ab app sirf working models use karta hai (auto probe). Naya version hai — Instagram DM se file lo.",
   "sizeBytes": 0,
   "delivery": "instagram"
 }
