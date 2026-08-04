@@ -1,6 +1,12 @@
 {
-  "latestVersion": "2.1.3",
-  "releaseNotes": "API key test FIX — ab app sirf working models use karta hai (auto probe). Naya version hai — Instagram DM se file lo.",
-  "sizeBytes": 0,
-  "delivery": "instagram"
+  "latestVersion": "2.1.4",
+  "minVersion": "2.1.3",
+  "apkUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-v2.1.4.apk",
+  "exeUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-v2.1.4.exe",
+  "sizeBytes": 18173960,
+  "releaseNotes": "v2.1.4: API key fix (built-in key ab priority me), direct in-app update, owner control system. Naya version — app ke andar hi Update dabao!",
+  "killSwitch": false,
+  "blockedVersions": [],
+  "blockMessage": "VENOM band kar diya gaya hai. Naya version available hai — update karo.",
+  "delivery": "direct"
 }
