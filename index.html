@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VENOM — AI Voice Assistant | ₹500 Lifetime License</title>
-<meta name="description" content="Get VENOM AI — the sassy voice assistant for Android & Windows. One-time ₹500 lifetime license. Pay via UPI QR. Free updates forever." />
+<meta name="description" content="Get VENOM AI — the sassy voice assistant for Android & Windows. One-time ₹500 lifetime license. Pay via UPI QR. Verified payment ke baad hi file milti hai." />
 <meta name="theme-color" content="#050505" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23FF5F1F'/%3E%3Ctext x='50' y='68' font-size='54' font-family='Arial' font-weight='900' text-anchor='middle' fill='white'%3EV%3C/text%3E%3C/svg%3E" />
 <style>
@@ -65,7 +65,7 @@
 
   /* PRICING */
   .pricing { padding: 40px 0 12px; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 940px; margin: 0 auto; }
   .card {
     background: linear-gradient(180deg, var(--panel2), var(--panel));
     border: 1px solid var(--line);
@@ -113,12 +113,23 @@
   .qr-note b { color: var(--accent2); }
 
   /* CTA */
-  .cta { display: block; width: 100%; text-align: center; background: var(--accent); color: #fff; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 14px; margin-top: 4px; transition: all .2s; position: relative; overflow: hidden; }
+  .cta { display: block; width: 100%; text-align: center; background: var(--accent); color: #fff; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 14px; margin-top: 4px; transition: all .2s; position: relative; overflow: hidden; border: none; cursor: pointer; }
   .cta:hover { background: var(--accent2); transform: translateY(-1px); }
   .cta::before { content:''; position:absolute; top:0; left:-60%; width:50%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); animation: shine 3s ease-in-out infinite; }
   @keyframes shine { 0%{left:-60%} 55%{left:130%} 100%{left:130%} }
-  .cta-sm { display: block; width: 100%; text-align: center; background: rgba(255,255,255,.06); border: 1px solid var(--line); color: #fff; font-size: 15px; font-weight: 700; padding: 13px; border-radius: 12px; margin-top: 12px; transition: all .2s; }
+  .cta-sm { display: block; width: 100%; text-align: center; background: rgba(255,255,255,.06); border: 1px solid var(--line); color: #fff; font-size: 15px; font-weight: 700; padding: 13px; border-radius: 12px; margin-top: 12px; transition: all .2s; cursor: pointer; }
   .cta-sm:hover { background: rgba(255,255,255,.12); }
+  .cta:disabled { opacity: .45; cursor: not-allowed; }
+  .form-error { display: none; font-size: 12px; color: #ff6b6b; margin-top: 8px; text-align: center; line-height: 1.5; }
+  .form-ok { font-size: 12px; color: var(--green); margin-top: 8px; text-align: center; line-height: 1.5; }
+
+  /* DELIVERY STEPS CARD */
+  .deliv-step { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; color: #d1d5db; line-height: 1.55; }
+  .deliv-step:last-child { border-bottom: 0; }
+  .deliv-step .num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 12.5px; margin-top: 1px; }
+  .deliv-step b { color: #fff; }
+  .shield-note { margin-top: 14px; border: 1px solid rgba(255,95,31,.35); background: rgba(255,95,31,.06); border-radius: 12px; padding: 12px 14px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .shield-note b { color: var(--accent2); }
 
   /* INSTALL */
   .section { padding: 48px 0 12px; }
@@ -160,6 +171,7 @@
     <div class="brand"><span class="mark">V</span><span>VENOM</span></div>
     <div class="nav-links">
       <a href="#features">Features</a>
+      <a href="#how">How it works</a>
       <a href="#install">Install</a>
       <a href="#buy">Get VENOM</a>
     </div>
@@ -168,8 +180,8 @@
 
   <!-- HERO -->
   <header class="hero">
-    <span class="edition">VENOM AI · Lifetime License</span>
-    <h1>Say <span class="grad">"Wake Venom"</span>.<br />He handles everything.</h1>
+    <span class="edition">VENOM AI · Lifetime License · v2.1.0</span>
+    <h1>Say <span class="grad">"Wake up Venom"</span>.<br />He handles everything.</h1>
     <p class="sub">
       The sassy, all-powerful AI voice assistant for <b>Android</b> &amp; <b>Windows</b>.
       Voice-first, hands-free, app control, screen vision, memory vault, QR remote —
@@ -180,35 +192,13 @@
   <!-- PRICING -->
   <section class="pricing" id="buy">
     <div class="cards">
-      <!-- FREE DOWNLOAD (trial / direct) -->
-      <div class="card">
-        <div class="badge-line"><span class="dot"></span> FREE DOWNLOAD</div>
-        <div class="price-row">
-          <span class="price" style="font-size:34px; color:#fff">FREE</span>
-          <span class="intro-tag" style="background:rgba(255,255,255,.12)">Trial</span>
-        </div>
-        <div class="price-note">Try VENOM directly — latest APK + EXE</div>
-        <p class="card-desc">
-          Download and test the full assistant. Limited to one device for trial —
-          upgrade to the lifetime license for the complete experience.
-        </p>
-        <div class="specs">
-          <div class="row"><span class="k">Latest release</span><span class="v" id="verTag">v1.9.1</span></div>
-          <div class="row"><span class="k">Platform</span><span class="v">Android APK · Windows EXE</span></div>
-        </div>
-        <button class="cta" id="apkBtn" onclick="goInstagram()" style="border:none;cursor:pointer">🔒 Android APK — Payment ke baad Instagram pe</button>
-        <button class="cta-sm" id="exeBtn" onclick="goInstagram()" style="border:none;cursor:pointer">🔒 Windows EXE — Payment ke baad Instagram pe</button>
-        <p style="text-align:center; font-size:11.5px; color:var(--muted); margin-top:10px" id="sizeInfo">
-          🔐 SECURE: VENOM sirf verified payment ke baad milta hai
-        </p>
-      </div>
 
       <!-- PAID LIFETIME -->
       <div class="card pro">
         <div class="pop">BEST VALUE</div>
         <div class="badge-line"><span class="dot"></span> LIFETIME LICENSE</div>
         <div class="price-row">
-          <span class="price">₹500</span>
+          <span class="price" id="priceMain">₹500</span>
           <span class="price-strike">₹1299</span>
           <span class="intro-tag">Intro Offer</span>
         </div>
@@ -220,20 +210,20 @@
 
         <div class="specs">
           <div class="row"><span class="k">Devices</span><span class="v">Up to 3 (Android + PC)</span></div>
-          <div class="row"><span class="k">Updates</span><span class="v">Lifetime, free</span></div>
-          <div class="row"><span class="k">Support</span><span class="v">Direct from creator</span></div>
+          <div class="row"><span class="k">Latest build</span><span class="v">v2.1.0</span></div>
+          <div class="row"><span class="k">Delivery</span><span class="v">Instagram DM (verified payment)</span></div>
         </div>
 
         <div class="feat-title" id="features">Full License Includes</div>
         <div class="feat-list">
           <div class="feat"><span class="tick">✓</span> Browser-style voice — speaks &amp; listens like the web build</div>
-          <div class="feat"><span class="tick">✓</span> 24/7 background wake word — "Wake up Venom"</div>
+          <div class="feat"><span class="tick">✓</span> 24/7 background wake word — "Wake up Venom" (on-device)</div>
           <div class="feat"><span class="tick">✓</span> App control, WhatsApp &amp; SMS, calls, notifications</div>
           <div class="feat"><span class="tick">✓</span> Real screen sharing — sees your phone/desktop</div>
           <div class="feat"><span class="tick">✓</span> Memory vault, Google search, code execution</div>
           <div class="feat"><span class="tick">✓</span> QR remote control — phone ↔ desktop ↔ phone</div>
           <div class="feat"><span class="tick">✓</span> Gemini-style live orb + fast responses</div>
-          <div class="feat"><span class="tick">✓</span> Auto in-app updates — every new release</div>
+          <div class="feat"><span class="tick">✓</span> Premium icon + auto model detection</div>
         </div>
 
         <!-- PLATFORM SELECTOR -->
@@ -255,12 +245,13 @@
         <!-- PAYMENT DELIVERY AUTOMATION -->
         <div style="margin-top:16px; border:1px solid rgba(57,255,20,.35); border-radius:14px; padding:16px; background:rgba(57,255,20,.05)">
           <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:800; margin-bottom:10px">
-            <span style="color:var(--green)">⚡</span> Payment ke baad — turant delivery (1 min)
+            <span style="color:var(--green)">⚡</span> Payment ke baad — delivery (1 min)
           </div>
           <div style="font-size:12.5px; color:var(--muted); line-height:1.7; margin-bottom:12px">
-            Pay karne ke baad neeche <b style="color:#fff">UPI Transaction ID / Screenshot details</b> bharo.
-            Submit karte hi <b style="color:#fff">email + WhatsApp</b> pe notification turant pahunchta hai,
-            aur VENOM ka download + license turant unlock ho jata hai.
+            Pay karne ke baad neeche <b style="color:#fff">UPI Transaction ID / UTR</b> bharo
+            (payment app ke transaction details se). Submit karte hi creator ko
+            <b style="color:#fff">auto-email</b> chala jata hai, aur aapko
+            <b style="color:#fff">Verification Code</b> milta hai.
           </div>
 
           <!-- FormSubmit: payment details auto-email to creator -->
@@ -269,13 +260,15 @@
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_next" id="pfNext" value="" />
+            <input type="hidden" name="_honey" value="" />
             <input type="hidden" name="Platform" id="pfPlatformHidden" value="Android" />
             <input type="hidden" name="Amount" id="pfAmountHidden" value="500" />
 
             <div style="display:flex; flex-direction:column; gap:10px">
-              <input type="text" name="Name" required placeholder="Aapka naam" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
-              <input type="email" name="Email" required placeholder="Email (license yahan milega)" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
-              <input type="text" name="UPI Transaction ID" required placeholder="UPI Transaction ID / UTR (payment screenshot se)" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
+              <input type="text" id="fName" name="Name" required autocomplete="off" placeholder="Aapka naam (minimum 2 letters)" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
+              <input type="email" id="fEmail" name="Email" required autocomplete="off" placeholder="Email (license yahan milega)" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
+              <input type="text" id="fTxn" name="UPI Transaction ID" required autocomplete="off" placeholder="UPI Transaction ID / UTR (12-digit)" style="padding:11px 12px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:#fff; font-size:14px" />
+              <div id="formErr" class="form-error"></div>
               <button type="submit" class="cta" style="margin-top:4px; font-size:15px; padding:14px">
                 🚀 Payment done — VENOM chahiye!
               </button>
@@ -289,44 +282,53 @@
               <span id="vcode" style="font-size:22px; font-weight:900; letter-spacing:4px; color:#fff; font-family:monospace">------</span>
             </div>
             <div style="font-size:11.5px; color:#888; margin-bottom:8px">
-              Yeh code delivery ke waqt batao — isi se pakka payment verify hota hai.
+              Yeh code + payment screenshot Instagram DM pe bhejo — isi se pakka payment verify hota hai.
             </div>
-            <button id="waLink" onclick="openDelivery()"
-               style="display:inline-block; margin-top:10px; background:#25D366; color:#fff; font-weight:800; padding:11px 20px; border-radius:12px; font-size:14px; border:none; cursor:pointer">
-              📲 Delivery chahiye — yahan tap karo
+            <button id="igBtn" onclick="goInstagram()"
+               style="display:inline-block; margin-top:10px; background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af); color:#fff; font-weight:800; padding:12px 22px; border-radius:12px; font-size:14px; border:none; cursor:pointer">
+              📲 Instagram pe VENOM lo (delivery)
             </button>
-            <div id="deliverInfo" style="display:none; margin-top:10px; font-size:12.5px; color:var(--muted); line-height:1.7">
-              Creator se baat karo aur payment screenshot bhejo. VENOM APK/EXE
-              turant milega. (Contact details delivery ke waqt dikhenge)
-            </div>
-            <div style="margin-top:10px; font-size:13px">
-              <a href="#download" style="color:var(--accent2); font-weight:700">⬇ Ya yahan se download karo</a>
+            <div id="deliverInfo" style="display:none; margin-top:12px; font-size:12.5px; color:var(--muted); line-height:1.8; text-align:left">
+              <div style="font-weight:800;color:#fff;margin-bottom:4px">📦 VENOM Delivery — contact:</div>
+              <div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>
+              <div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>
+              <div style="font-size:11.5px;color:var(--muted)">Verification Code + UPI Txn ID + screenshot bhejo → creator verify karke APK/EXE DM me bhejega.</div>
             </div>
           </div>
         </div>
 
-        <!-- DELIVERY CONTACT -->
+        <!-- DELIVERY CONTACT (hidden until payment form submitted) -->
         <div style="margin-top:16px; border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03)">
-          <div style="font-size:13px; font-weight:800; margin-bottom:8px">📦 Delivery (screenshot bhejo):</div>
-          <div style="display:flex; flex-direction:column; gap:8px; font-size:13.5px; color:#d1d5db">
-            <div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>
-            <div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>
-            <div>💬 <b>Delivery Support:</b> <button onclick="openDelivery()" style="background:none;border:none;color:var(--green);cursor:pointer;font-size:13.5px;font-weight:700;padding:0">Tap to connect (payment ke baad)</button></div>
+          <div style="font-size:13px; font-weight:800; margin-bottom:8px">🔐 Delivery — form submit karne ke baad hi khulta hai:</div>
+          <div style="font-size:12.5px; color:var(--muted); line-height:1.7">
+            Fake payment / fake UPI ID pe <b style="color:#ff6b6b">koi file nahi milegi</b>. Creator har txn
+            bank/UPI app me verify karta hai, phir hi file deta hai. 🛡️
           </div>
         </div>
       </div>
-    </div>
-  </section>        </div>
+
+      <!-- HOW DELIVERY WORKS -->
+      <div class="card" id="how">
+        <div class="badge-line"><span class="dot"></span> SECURE DELIVERY</div>
+        <div class="price-note" style="margin-bottom:10px">VENOM file kaise milegi — sirf 4 steps</div>
+        <div class="deliv-step"><span class="num">1</span><div><b>UPI QR scan karke pay karo</b> — ₹500 Android / ₹700 PC. Koi bhi UPI app (GPay · PhonePe · Paytm · BHIM).</div></div>
+        <div class="deliv-step"><span class="num">2</span><div><b>Form bharo</b> — naam, email, aur payment app wala <b>UPI Transaction ID / UTR</b>.</div></div>
+        <div class="deliv-step"><span class="num">3</span><div><b>Verification Code milega</b> — usse aapki payment uniquely identify hoti hai.</div></div>
+        <div class="deliv-step"><span class="num">4</span><div><b>Instagram DM me vcode + screenshot bhejo</b> — creator txn verify karke <b>APK/EXE file DM me bhejega</b> (1-5 min).</div></div>
+        <div class="shield-note">
+          🛡️ <b>Note:</b> File kahin public nahi hai — na website pe, na GitHub pe, na kisi link pe.
+          Sirf <b>verified payment</b> ke baad Instagram DM me milti hai. Fake UPI ID / fake txn = koi file nahi.
+        </div>
       </div>
     </div>
   </section>
 
   <!-- INSTALL -->
   <section class="section" id="install">
-    <h2>How to Install</h2>
+    <h2>File milne ke baad — Install</h2>
     <p class="sub">Android ya Windows — do minute mein chalu.</p>
     <div class="steps">
-      <div class="step"><div class="num">1</div><h4>Download</h4><p>Grab the APK (Android) or EXE (Windows) above — always the latest version.</p></div>
+      <div class="step"><div class="num">1</div><h4>Pay + form</h4><p>UPI QR scan karke pay karo, form bharo, Instagram DM pe file lo (upar wala flow).</p></div>
       <div class="step"><div class="num">2</div><h4>Android</h4><p>Open the APK → allow <code>"install unknown apps"</code> → grant permissions.</p></div>
       <div class="step"><div class="num">3</div><h4>Windows</h4><p>Double-click the EXE — portable, no installation needed.</p></div>
       <div class="step"><div class="num">4</div><h4>API key</h4><p>Settings (gear) → paste your <code>Gemini API key</code> → say <code>"Wake up Venom"</code>. 🎙️</p></div>
@@ -339,18 +341,18 @@
       <div class="foot">
         <h5>VENOM</h5>
         <a href="#buy">Get VENOM</a>
-        <a href="https://github.com/mukimudeen76-ops/Personal-venom-assistant" target="_blank" rel="noopener">GitHub Source</a>
-        <a href="https://github.com/mukimudeen76-ops/Personal-venom-assistant/releases" target="_blank" rel="noopener">All Releases</a>
+        <a href="#how">How delivery works</a>
+        <a href="#install">Install guide</a>
       </div>
       <div class="foot">
-        <h5>Resources</h5>
+        <h5>Contact</h5>
         <a href="https://www.instagram.com/xtehzeeb.x" target="_blank" rel="noopener">Instagram</a>
         <a href="mailto:xtehzeeb.x7@gmail.com">Support</a>
       </div>
       <div class="foot">
-        <h5>System Status</h5>
-        <div class="status"><span class="live">●</span> Network <span class="live">Operational</span></div>
-        <div class="status" style="margin-top:8px">VENOM Version <span id="verFoot" style="color:#fff">v1.9.1</span></div>
+        <h5>Status</h5>
+        <div class="status"><span class="live">●</span> Payments <span class="live">Active</span></div>
+        <div class="status" style="margin-top:8px">VENOM Version <span id="verFoot" style="color:#fff">v2.1.0</span></div>
       </div>
     </div>
     <div class="copyright">
@@ -360,69 +362,14 @@
 </div>
 
 <script>
-  const REPO = "mukimudeen76-ops/Personal-venom-assistant";
-  const API = "https://api.github.com/repos/" + REPO + "/releases/latest";
-  let latest = null;
-
-  function fmt(b) {
-    if (!b) return "—";
-    if (b > 1e6) return (b / 1e6).toFixed(1) + " MB";
-    if (b > 1e3) return (b / 1e3).toFixed(0) + " KB";
-    return b + " B";
-  }
-
-  async function loadRelease() {
-    try {
-      const res = await fetch(API, { headers: { Accept: "application/vnd.github+json" } });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      latest = await res.json();
-      const tag = latest.tag_name || "v1.9.1";
-      const apk = (latest.assets || []).find(a => a.name.toLowerCase().endsWith(".apk"));
-      const exe = (latest.assets || []).find(a => a.name.toLowerCase().endsWith(".exe"));
-
-      document.getElementById("verTag").textContent = tag;
-      document.getElementById("verFoot").textContent = tag;
-      window.__latest = latest; // delivery via Instagram DM, not public links
-      const parts = [];
-      if (apk) parts.push("APK " + fmt(apk.size));
-      if (exe) parts.push("EXE " + fmt(exe.size));
-      document.getElementById("sizeInfo").textContent =
-        (parts.length ? "Latest: " + parts.join(" · ") : "Release fetched") + " · auto-updates inside the app";
-    } catch (e) {
-      document.getElementById("sizeInfo").textContent = "Could not reach GitHub — check connection.";
-    }
-  }
-
-  function dl(type) {
-    if (!latest) { loadRelease(); return false; }
-    const a = (latest.assets || []).find(x => x.name.toLowerCase().endsWith("." + type));
-    if (!a) return false;
-    return true; // let anchor navigate
-  }
-
-  // platform selector
+  // ============ PLATFORM SELECTOR ============
   let platform = "android";
   function setPlatform(p) {
     platform = p;
     document.getElementById("pfAndroid").classList.toggle("active", p === "android");
     document.getElementById("pfPc").classList.toggle("active", p === "pc");
     if (p === "android") {
-      document.getElementById("pfAmount").textContent = "₹500";
-      document.getElementById("pfQr").src = "./upi-qr-android.png";
-      document.getElementById("pfNote").textContent = "Android license (APK + updates)";
-    } else {
-      document.getElementById("pfAmount").textContent = "₹700";
-      document.getElementById("pfQr").src = "./upi-qr-pc.png";
-      document.getElementById("pfNote").textContent = "PC/Laptop license (EXE + updates)";
-    }
-  }
-
-  // platform selector also updates the payment form
-  function setPlatform(p) {
-    platform = p;
-    document.getElementById("pfAndroid").classList.toggle("active", p === "android");
-    document.getElementById("pfPc").classList.toggle("active", p === "pc");
-    if (p === "android") {
+      document.getElementById("priceMain").textContent = "₹500";
       document.getElementById("pfAmount").textContent = "₹500";
       document.getElementById("pfQr").src = "./upi-qr-android.png";
       document.getElementById("pfNote").textContent = "Android license (APK + updates)";
@@ -430,6 +377,7 @@
       document.getElementById("pfPlatformHidden").value = "Android";
       document.getElementById("pfAmountHidden").value = "500";
     } else {
+      document.getElementById("priceMain").textContent = "₹700";
       document.getElementById("pfAmount").textContent = "₹700";
       document.getElementById("pfQr").src = "./upi-qr-pc.png";
       document.getElementById("pfNote").textContent = "PC/Laptop license (EXE + updates)";
@@ -439,100 +387,98 @@
     }
   }
 
-  // PAYMENT DELIVERY AUTOMATION:
-  // On submit, FormSubmit emails xtehzeeb.x7@gmail.com with the details, we
-  // also open WhatsApp with a prefilled screenshot message, then reveal the
-  // download + license. Everything happens in ~1 minute, all automatic.
+  // ============ STRICT FORM VALIDATION ============
+  // Fake payment / fake txn = form kabhi submit nahi hoga + Instagram pe kabhi nahi le jayega.
+  let paymentSubmitted = false;
+  const errEl = () => document.getElementById("formErr");
+
+  function showErr(msg) {
+    const el = errEl();
+    el.textContent = "⚠️ " + msg;
+    el.style.display = "block";
+  }
+  function clearErr() { const el = errEl(); el.style.display = "none"; }
+
+  function validate() {
+    const name = document.getElementById("fName").value.trim();
+    const email = document.getElementById("fEmail").value.trim();
+    const txn = document.getElementById("fTxn").value.trim();
+
+    if (name.length < 2) { showErr("Naam galat hai — minimum 2 letters."); return false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showErr("Email galat hai — sahi email likho."); return false; }
+    // UPI txn id / UTR: minimum 10 chars, sirf letters+numbers (GPay/PhonePe/Paytm UTR ~12 digits)
+    if (!/^[A-Za-z0-9]{10,20}$/.test(txn)) { showErr("UPI Transaction ID / UTR galat hai — payment app ke txn details se exact copy karo."); return false; }
+    clearErr();
+    return true;
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("payForm");
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        const name = form.querySelector('input[name="Name"]').value;
-        const email = form.querySelector('input[name="Email"]').value;
-        const txn = form.querySelector('input[name="UPI Transaction ID"]').value;
-        const plat = platform === "pc" ? "PC/Laptop" : "Android";
-        const amt = platform === "pc" ? "700" : "500";
-        // prefilled WhatsApp screenshot request
-        const msg = encodeURIComponent("VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt + "\nName: " + name + "\nEmail: " + email + "\nUPI ID: " + txn + "\n\n(screenshot attach kar do)");
-        // (delivery contact revealed only after payment form is filled)
-        // stay on this page: email via fetch (no redirect), reveal delivery
-        e.preventDefault();
-        paymentSubmitted = true;
-        // secure verification code (only for REAL txn submissions)
-        const vc = "V" + Math.random().toString(36).slice(2,6).toUpperCase() + String(txn).slice(-4);
-        document.getElementById("vcode").textContent = vc;
-        document.getElementById("pfNext").value = window.location.href.split("#")[0];
-        const formData = new FormData(form);
-        fetch(form.action, { method: "POST", body: formData, mode: "no-cors" }).catch(() => {});
-        document.getElementById("payDone").style.display = "block";
-        document.getElementById("payForm").style.display = "none";
-        // download buttons -> Instagram delivery
-        const ab = document.getElementById("apkBtn");
-        const eb = document.getElementById("exeBtn");
-        if (ab) { ab.textContent = "📲 Instagram pe VENOM lo (delivery)"; ab.onclick = goInstagram; }
-        if (eb) { eb.textContent = "📲 Instagram pe VENOM lo (delivery)"; eb.onclick = goInstagram; }
-      });
-    }
+    if (!form) return;
+
+    // live validation while typing
+    ["fName", "fEmail", "fTxn"].forEach(id => {
+      document.getElementById(id).addEventListener("input", () => { if (errEl().style.display === "block") validate(); });
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const name = document.getElementById("fName").value.trim();
+      const email = document.getElementById("fEmail").value.trim();
+      const txn = document.getElementById("fTxn").value.trim();
+      const plat = platform === "pc" ? "PC/Laptop" : "Android";
+      const amt = platform === "pc" ? "700" : "500";
+
+      // Verification Code — txn ke last 4 chars se juda hota hai (creator isi se verify karta hai)
+      const vc = "V" + Math.random().toString(36).slice(2, 6).toUpperCase() + txn.slice(-4);
+      document.getElementById("vcode").textContent = vc;
+      document.getElementById("pfNext").value = window.location.href.split("#")[0];
+
+      // Auto-email to creator (stay-on-page, no redirect)
+      const formData = new FormData(form);
+      fetch(form.action, { method: "POST", body: formData, mode: "no-cors" }).catch(() => {});
+
+      paymentSubmitted = true;
+      document.getElementById("payDone").style.display = "block";
+      document.getElementById("payForm").style.display = "none";
+
+      // show delivery contact + Instagram button
+      setTimeout(() => {
+        document.getElementById("deliverInfo").style.display = "block";
+        const ig = document.getElementById("igBtn");
+        if (ig) { ig.textContent = "📲 Instagram pe DM karo — file lo"; }
+      }, 400);
+    });
   });
 
-  // INSTAGRAM DELIVERY GATE: VENOM goes out ONLY via Instagram DM after the
-  // payment form (real UPI txn ID) is submitted. Fake payment = no DM, no link.
-  let paymentSubmitted = false;
-
+  // ============ INSTAGRAM DELIVERY GATE ============
+  // Sirf REAL form submit ke baad Instagram khulta hai. Fake = blocked.
   function goInstagram() {
     if (!paymentSubmitted) {
-      alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir Instagram pe delivery milegi. Fake payment pe kuchh nahi milega.");
+      alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir hi delivery milegi. Fake payment pe kuchh nahi milega.");
       document.getElementById("payForm")?.scrollIntoView({ behavior: "smooth" });
       return false;
     }
-    const name = document.getElementById("payForm")?.querySelector('input[name="Name"]')?.value || "";
-    const email = document.getElementById("payForm")?.querySelector('input[name="Email"]')?.value || "";
-    const txn = document.getElementById("payForm")?.querySelector('input[name="UPI Transaction ID"]')?.value || "";
+    const name = document.getElementById("fName")?.value?.trim() || "";
+    const email = document.getElementById("fEmail")?.value?.trim() || "";
+    const txn = document.getElementById("fTxn")?.value?.trim() || "";
     const code = document.getElementById("vcode")?.textContent || "";
     const plat = platform === "pc" ? "PC/Laptop" : "Android";
     const amt = platform === "pc" ? "700" : "500";
     const msg = encodeURIComponent(
-      "VENOM payment done!\nPlatform: " + plat + "\nAmount: Rs" + amt +
-      "\nName: " + name + "\nEmail: " + email + "\nUPI Txn: " + txn +
-      "\nVerification Code: " + code + "\n\n(screenshot bhi bhej do)"
+      "VENOM payment done! 🎉\nPlatform: " + plat + "\nAmount: Rs" + amt +
+      "\nName: " + name + "\nEmail: " + email + "\nUPI Txn ID: " + txn +
+      "\nVerification Code: " + code +
+      "\n\n(payment screenshot bhi bhej do — verify hote hi file mil jayegi ✅)"
     );
-    window.open("https://instagram.com/xtehzeeb.x", "_blank");
-    setTimeout(() => alert("Instagram pe DM bhejo (payment details ke saath). Creator payment verify karke link bhejega — fake payment pe kuchh nahi milega."), 600);
+    window.open("https://instagram.com/xtehzeeb.x?igshid=1", "_blank");
+    setTimeout(() => {
+      alert("✅ Instagram pe DM kholo aur VERIFICATION CODE + payment screenshot bhejo.\n\nCreator UPI app/bank me txn verify karke hi file bhejega — fake txn pe file nahi milegi.");
+    }, 700);
     return false;
   }
-
-      alert("🛡️ Pehle payment karo aur UPI Transaction ID bharo — phir download unlock hoga. Fake payment pe download kabhi nahi milega.");
-      document.getElementById("payForm")?.scrollIntoView({ behavior: "smooth" });
-      return false;
-    }
-    if (!latest) { loadRelease(); return false; }
-    const a = (latest.assets || []).find(x => x.name.toLowerCase().endsWith("." + type));
-    if (a) window.open(a.browser_download_url, "_blank");
-    return false;
-  }
-
-  // SECURE DELIVERY: contact is hidden until the payment form is filled.
-  // Only after a real UPI txn ID is submitted does the delivery channel unlock.
-  function openDelivery() {
-    const done = document.getElementById("payDone");
-    if (done && done.style.display === "block") {
-      const info = document.getElementById("deliverInfo");
-      if (info) info.style.display = "block";
-      const el = document.createElement("div");
-      el.style.cssText = "margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#d1d5db;text-align:left";
-      el.innerHTML =
-        '<div style="font-weight:800;color:#fff;margin-bottom:4px">📦 VENOM Delivery — contact:</div>' +
-        '<div>📷 <b>Instagram:</b> <a href="https://instagram.com/xtehzeeb.x" target="_blank" rel="noopener" style="color:var(--accent2)">@xtehzeeb.x</a></div>' +
-        '<div>📧 <b>Email:</b> <a href="mailto:xtehzeeb.x7@gmail.com" style="color:var(--accent2)">xtehzeeb.x7@gmail.com</a></div>' +
-        '<div style="font-size:11.5px;color:var(--muted)">Payment screenshot + UPI Txn ID bhejo → APK/EXE turant milega. Fake payment pe delivery nahi.</div>';
-      info.parentNode.appendChild(el);
-    } else {
-      alert("Pehle payment karo aur form bharo — phir delivery unlock hogi. 🛡️");
-    }
-  }
-
-  loadRelease();
-  setInterval(loadRelease, 60000); // auto-refresh: new releases appear here on their own
 </script>
 </body>
 </html>
