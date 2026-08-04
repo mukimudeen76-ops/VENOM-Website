@@ -1,6 +1,6 @@
 {
-  "latestVersion": "2.1.1",
-  "releaseNotes": "Update check rate-limit fix + premium icon + strict wake word. Naya version hai — Instagram DM se file lo (payment verified users).",
+  "latestVersion": "2.1.2",
+  "releaseNotes": "Source code ab private hai — update ab Instagram DM se milta hai. Update check bhi fix (manifest-based, rate-limit safe).",
   "sizeBytes": 0,
   "delivery": "instagram"
 }
