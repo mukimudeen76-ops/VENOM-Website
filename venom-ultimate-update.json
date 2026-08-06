@@ -1,9 +1,10 @@
 {
-  "latestVersion": "1.1.0",
-  "apkUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.1.0.apk",
-  "sizeBytes": 15432351,
-  "releaseNotes": "VENOM Ultimate 1.1.0 released.",
-  "minVersion": "1.1.0",
+  "latestVersion": "1.2.1",
+  "apkUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.1.apk",
+  "exeUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.1.exe",
+  "sizeBytes": 15440855,
+  "releaseNotes": "VENOM 1.2.1 released — 100 tools + 11 agents + story + website builder.",
+  "minVersion": "1.2.1",
   "killSwitch": false,
   "blockedVersions": [],
   "delivery": "direct"
