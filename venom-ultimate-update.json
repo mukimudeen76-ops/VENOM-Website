@@ -1,10 +1,10 @@
 {
-  "latestVersion": "1.2.4",
-  "apkUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.4.apk",
-  "exeUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.4.exe",
-  "sizeBytes": 15443119,
-  "releaseNotes": "VENOM 1.2.4 \u2014 BLACK SCREEN FIX (relative WebView paths + native retry).",
-  "minVersion": "1.2.4",
+  "latestVersion": "1.2.5",
+  "apkUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.5.apk",
+  "exeUrl": "https://mukimudeen76-ops.github.io/VENOM-Website/dl/VENOM-ULTIMATE-1.2.5.exe",
+  "sizeBytes": 15443427,
+  "releaseNotes": "VENOM 1.2.5 \u2014 awaaz fix (native TTS), wake word, QR scan, auto-guest.",
+  "minVersion": "1.2.5",
   "killSwitch": false,
   "blockedVersions": [],
   "delivery": "direct"
